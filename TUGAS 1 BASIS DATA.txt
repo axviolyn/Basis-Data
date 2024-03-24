@@ -1,0 +1,266 @@
+TUGAS 1 BASIS DATA
+
+Setting environment for using XAMPP for Windows.
+Nurhayati@LYN c:\xampp
+# mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 8
+Server version: 10.4.28-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| dbti02             |
+| information_schema |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| test               |
++--------------------+
+6 rows in set (0.037 sec)
+
+MariaDB [(none)]> CREATE DATABASE dbkuliah_Nurhayati;
+Query OK, 1 row affected (0.004 sec)
+
+MariaDB [(none)]> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| dbkuliah_nurhayati |
+| dbti02             |
+| information_schema |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| test               |
++--------------------+
+7 rows in set (0.001 sec)
+
+MariaDB [(none)]> USE dbkuliah_nurhayati;
+Database changed
+MariaDB [dbkuliah_nurhayati]> SHOW TABLES;
+Empty set (0.001 sec)
+
+MariaDB [dbkuliah_nurhayati]> CREATE TABLE jurusan(
+    -> id int primary key auto_increment not null,
+    -> nama varchar(30) not null unique);
+Query OK, 0 rows affected (0.047 sec)
+
+MariaDB [dbkuliah_nurhayati]> DESC jurusan;
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| id    | int(11)     | NO   | PRI | NULL    | auto_increment |
+| nama  | varchar(30) | NO   | UNI | NULL    |                |
++-------+-------------+------+-----+---------+----------------+
+2 rows in set (0.069 sec)
+
+MariaDB [dbkuliah_nurhayati]> CREATE TABLE mahasiswa(
+    -> id int primary key auto_increment not null,
+    -> nim int not null,
+    -> nama varchar(30) not null,
+    -> alamat varchar(50) not null,
+    -> idjurusan int not null,
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 6
+MariaDB [dbkuliah_nurhayati]> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')' at line 1
+MariaDB [dbkuliah_nurhayati]> CREATE TABLE mahasiswa(
+    -> id int primary key auto_increment not null,
+    -> nim int not null unique,
+    -> nama varchar(30) not null,
+    -> alamat varchar(50) not null,
+    -> idjurusan int not null references jenis(id));
+Query OK, 0 rows affected (0.081 sec)
+
+MariaDB [dbkuliah_nurhayati]>
+MariaDB [dbkuliah_nurhayati]> DESC mahasiswa;
++-----------+-------------+------+-----+---------+----------------+
+| Field     | Type        | Null | Key | Default | Extra          |
++-----------+-------------+------+-----+---------+----------------+
+| id        | int(11)     | NO   | PRI | NULL    | auto_increment |
+| nim       | int(11)     | NO   | UNI | NULL    |                |
+| nama      | varchar(30) | NO   |     | NULL    |                |
+| alamat    | varchar(50) | NO   |     | NULL    |                |
+| idjurusan | int(11)     | NO   |     | NULL    |                |
++-----------+-------------+------+-----+---------+----------------+
+5 rows in set (0.038 sec)
+
+MariaDB [dbkuliah_nurhayati]> SHOW TABLES;
++------------------------------+
+| Tables_in_dbkuliah_nurhayati |
++------------------------------+
+| jurusan                      |
+| mahasiswa                    |
++------------------------------+
+2 rows in set (0.002 sec)
+
+MariaDB [dbkuliah_nurhayati]> DESC jurusan;
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| id    | int(11)     | NO   | PRI | NULL    | auto_increment |
+| nama  | varchar(30) | NO   | UNI | NULL    |                |
++-------+-------------+------+-----+---------+----------------+
+2 rows in set (0.035 sec)
+
+MariaDB [dbkuliah_nurhayati]> DESC mahasiswa;
++-----------+-------------+------+-----+---------+----------------+
+| Field     | Type        | Null | Key | Default | Extra          |
++-----------+-------------+------+-----+---------+----------------+
+| id        | int(11)     | NO   | PRI | NULL    | auto_increment |
+| nim       | int(11)     | NO   | UNI | NULL    |                |
+| nama      | varchar(30) | NO   |     | NULL    |                |
+| alamat    | varchar(50) | NO   |     | NULL    |                |
+| idjurusan | int(11)     | NO   |     | NULL    |                |
++-----------+-------------+------+-----+---------+----------------+
+5 rows in set (0.035 sec)
+
+MariaDB [dbkuliah_nurhayati]> SELECT * FROM jurusan;
+Empty set (0.073 sec)
+
+MariaDB [dbkuliah_nurhayati]> SELECT * FROM mahasiswa;
+Empty set (0.003 sec)
+
+MariaDB [dbkuliah_nurhayati]> DESC jurusan;
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| id    | int(11)     | NO   | PRI | NULL    | auto_increment |
+| nama  | varchar(30) | NO   | UNI | NULL    |                |
++-------+-------------+------+-----+---------+----------------+
+2 rows in set (0.032 sec)
+
+MariaDB [dbkuliah_nurhayati]> INSERT INTO jurusan (nama) VALUES
+    -> ('Teknik Informatika'),('Sistem Informasi'),(Bisnis Digital'),('Desain Komunikasi Visual'),('Ilmu Komunikasi');
+    '> ';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'Digital'),('Desain Komunikasi Visual'),('Ilmu Komunikasi');
+'' at line 2
+MariaDB [dbkuliah_nurhayati]> INSERT INTO jurusan (nama) VALUES
+    -> ('Teknik Informatika'),('Sistem Informasi'),('Bisnis Digital'),('Desain Komunikasi Visual'),('Ilmu Komunikasi');
+Query OK, 5 rows affected (0.020 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+MariaDB [dbkuliah_nurhayati]> SELECT * FROM jurusan;
++----+--------------------------+
+| id | nama                     |
++----+--------------------------+
+|  3 | Bisnis Digital           |
+|  4 | Desain Komunikasi Visual |
+|  5 | Ilmu Komunikasi          |
+|  2 | Sistem Informasi         |
+|  1 | Teknik Informatika       |
++----+--------------------------+
+5 rows in set (0.001 sec)
+
+MariaDB [dbkuliah_nurhayati]> SELECT * FROM jurusan ORDER BY id ASC;
++----+--------------------------+
+| id | nama                     |
++----+--------------------------+
+|  1 | Teknik Informatika       |
+|  2 | Sistem Informasi         |
+|  3 | Bisnis Digital           |
+|  4 | Desain Komunikasi Visual |
+|  5 | Ilmu Komunikasi          |
++----+--------------------------+
+5 rows in set (0.001 sec)
+
+MariaDB [dbkuliah_nurhayati]> DESC mahasiswa;
++-----------+-------------+------+-----+---------+----------------+
+| Field     | Type        | Null | Key | Default | Extra          |
++-----------+-------------+------+-----+---------+----------------+
+| id        | int(11)     | NO   | PRI | NULL    | auto_increment |
+| nim       | int(11)     | NO   | UNI | NULL    |                |
+| nama      | varchar(30) | NO   |     | NULL    |                |
+| alamat    | varchar(50) | NO   |     | NULL    |                |
+| idjurusan | int(11)     | NO   |     | NULL    |                |
++-----------+-------------+------+-----+---------+----------------+
+5 rows in set (0.032 sec)
+
+MariaDB [dbkuliah_nurhayati]> INSERT INTO mahasiswa(nim,nama,alamat,idjurusan) VALUES
+    -> (0110223052,'Diah Ayu Puspasari','Dramaga',1),
+    -> (0110223054,'Eka Kartini','Ciapus',2),
+    -> (0110223068,'Pathi','Rumpin',3),
+    -> (0110223080,'Octaviani Nursalsabila','Cileungsi',4),
+    -> (0110223081, 'Nurhayati','Citeureup',5);
+Query OK, 5 rows affected (0.154 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+MariaDB [dbkuliah_nurhayati]> SELECT * FROM mahasiswa;
++----+-----------+------------------------+-----------+-----------+
+| id | nim       | nama                   | alamat    | idjurusan |
++----+-----------+------------------------+-----------+-----------+
+|  1 | 110223052 | Diah Ayu Puspasari     | Dramaga   |         1 |
+|  2 | 110223054 | Eka Kartini            | Ciapus    |         2 |
+|  3 | 110223068 | Pathi                  | Rumpin    |         3 |
+|  4 | 110223080 | Octaviani Nursalsabila | Cileungsi |         4 |
+|  5 | 110223081 | Nurhayati              | Citeureup |         5 |
++----+-----------+------------------------+-----------+-----------+
+5 rows in set (0.018 sec)
+
+MariaDB [dbkuliah_nurhayati]> SHOW TABLES;
++------------------------------+
+| Tables_in_dbkuliah_nurhayati |
++------------------------------+
+| jurusan                      |
+| mahasiswa                    |
++------------------------------+
+2 rows in set (0.010 sec)
+
+MariaDB [dbkuliah_nurhayati]> DESC mahasiswa;
++-----------+-------------+------+-----+---------+----------------+
+| Field     | Type        | Null | Key | Default | Extra          |
++-----------+-------------+------+-----+---------+----------------+
+| id        | int(11)     | NO   | PRI | NULL    | auto_increment |
+| nim       | int(11)     | NO   | UNI | NULL    |                |
+| nama      | varchar(30) | NO   |     | NULL    |                |
+| alamat    | varchar(50) | NO   |     | NULL    |                |
+| idjurusan | int(11)     | NO   |     | NULL    |                |
++-----------+-------------+------+-----+---------+----------------+
+5 rows in set (0.052 sec)
+
+MariaDB [dbkuliah_nurhayati]> ALTER TABLE mahasiswa ADD COLUMN foto varchar(30) AFTER idjurusan;
+Query OK, 0 rows affected (0.033 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [dbkuliah_nurhayati]> DESC mahasiswa;
++-----------+-------------+------+-----+---------+----------------+
+| Field     | Type        | Null | Key | Default | Extra          |
++-----------+-------------+------+-----+---------+----------------+
+| id        | int(11)     | NO   | PRI | NULL    | auto_increment |
+| nim       | int(11)     | NO   | UNI | NULL    |                |
+| nama      | varchar(30) | NO   |     | NULL    |                |
+| alamat    | varchar(50) | NO   |     | NULL    |                |
+| idjurusan | int(11)     | NO   |     | NULL    |                |
+| foto      | varchar(30) | YES  |     | NULL    |                |
++-----------+-------------+------+-----+---------+----------------+
+6 rows in set (0.039 sec)
+
+MariaDB [dbkuliah_nurhayati]> ALTER TABLE mahasiswa CHANGE foto gambar varchar(50) not null;;
+Query OK, 0 rows affected, 5 warnings (0.077 sec)
+Records: 0  Duplicates: 0  Warnings: 5
+
+ERROR: No query specified
+
+MariaDB [dbkuliah_nurhayati]> ALTER TABLE mahasiswa CHANGE foto gambar varchar(50) not null;
+ERROR 1054 (42S22): Unknown column 'foto' in 'mahasiswa'
+MariaDB [dbkuliah_nurhayati]> DESC mahasiswa;
++-----------+-------------+------+-----+---------+----------------+
+| Field     | Type        | Null | Key | Default | Extra          |
++-----------+-------------+------+-----+---------+----------------+
+| id        | int(11)     | NO   | PRI | NULL    | auto_increment |
+| nim       | int(11)     | NO   | UNI | NULL    |                |
+| nama      | varchar(30) | NO   |     | NULL    |                |
+| alamat    | varchar(50) | NO   |     | NULL    |                |
+| idjurusan | int(11)     | NO   |     | NULL    |                |
+| gambar    | varchar(50) | NO   |     | NULL    |                |
++-----------+-------------+------+-----+---------+----------------+
+6 rows in set (0.085 sec)
+
+MariaDB [dbkuliah_nurhayati]>
