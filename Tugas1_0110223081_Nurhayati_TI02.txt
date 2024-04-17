@@ -1,5 +1,3 @@
-YANG BETUL 
-
 Setting environment for using XAMPP for Windows.
 Nurhayati@LYN c:\xampp
 # mysql -u root -p
